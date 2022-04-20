@@ -1,7 +1,4 @@
-<template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <div>Hello World</div>
-</template>
+<template></template>
 
 <script setup lang="ts"></script>
 
