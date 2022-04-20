@@ -1,15 +1,22 @@
 <template>
   <div class="c-task-card">
     <div class="c-task-card-header">
-      <div class="c-task-card-header__hero"></div>
+      <div
+        v-if="!!headerColor"
+        class="c-task-card-header__media"
+        :class="{
+          'c-task-card-header__media--blue-gradient': headerColor == CardHeaderColor.BLUE_GRADIENT,
+          'c-task-card-header__media--pink-gradient': headerColor == CardHeaderColor.PINK_GRADIENT,
+        }"
+      ></div>
       <div class="c-task-card-header__labels">
         <div
           v-for="labelColor of labelColors"
           class="c-task-card-header__label"
           :class="{
-            'c-task-card-header__label--purple': labelColor == LabelColor.PURPLE,
-            'c-task-card-header__label--cyan': labelColor == LabelColor.CYAN,
-            'c-task-card-header__label--pink': labelColor == LabelColor.PINK,
+            'c-task-card-header__label--purple': labelColor == CardLabelColor.PURPLE,
+            'c-task-card-header__label--cyan': labelColor == CardLabelColor.CYAN,
+            'c-task-card-header__label--pink': labelColor == CardLabelColor.PINK,
           }"
         ></div>
       </div>
@@ -41,11 +48,13 @@
 </template>
 
 <script setup lang="ts">
-import { LabelColor } from '@/shared/constants/label-color';
+import { CardHeaderColor } from '@/shared/constants/card-header-color';
+import { CardLabelColor } from '@/shared/constants/card-label-color';
 
 interface IProps {
   title: string;
-  labelColors?: LabelColor[];
+  labelColors?: CardLabelColor[];
+  headerColor?: CardHeaderColor;
   hasMember?: boolean;
   checklistContent?: string;
   dateContent?: string;
@@ -56,23 +65,64 @@ const props = defineProps<IProps>();
 </script>
 
 <style lang="scss" scoped>
+.c-task-card {
+  border-radius: $borderRadius;
+  background-color: $white;
+  overflow: hidden;
+}
+
 .c-task-card-header {
   position: relative;
 
-  &__hero {
-    height: 400px;
+  &__media {
+    height: 100px;
     width: 100%;
+
+    &--pink-gradient {
+      background: $pinkGradient45;
+    }
+
+    &--blue-gradient {
+      background: $blueGradient45;
+    }
   }
 
   &__labels {
     position: absolute;
     top: 0;
     left: 0;
+
+    display: flex;
+    margin-left: 0.7em;
+    margin-top: 0.7em;
   }
 
   &__label {
-    width: 40px;
-    height: 5px;
+    width: 45px;
+    height: 10px;
+    margin-right: 1em;
+
+    &--pink {
+      background: $pink;
+    }
+
+    &--purple {
+      background: $purple;
+    }
+
+    &--cyan {
+      background: $cyan;
+    }
+  }
+}
+
+.c-task-card-footer {
+  &__tags {
+    display: flex;
+  }
+
+  &__tag {
+    margin-right: 1em;
   }
 }
 </style>

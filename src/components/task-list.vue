@@ -24,6 +24,13 @@ const props = defineProps<IProps>();
 </script>
 
 <style lang="scss" scoped>
+.c-task-list {
+  padding: 2em 1em;
+  background: $surface1;
+  border-radius: $borderRadius;
+  width: fit-content;
+}
+
 .c-task-list-header {
   &__title {
     font-weight: bolder;
